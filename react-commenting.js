@@ -8,7 +8,7 @@
 // src/App.js
 
 import React, { Component } from 'react'
-// 1)
+// 1) we are importing a child class component from a folder held locally to be rendered on the webpage
 import Dice from './Dice'
 import Log from './Log'
 
@@ -21,10 +21,10 @@ import dice5 from '../assets/dice-5.png'
 import dice6 from '../assets/dice-6.png'
 
 class Board extends Component{
-  // 2)
+  // 2) Creates the abiltiy to call props in child components to use the current values of this.state, it grants the ability to use the values of this.state for every perticular instance.
   constructor(props){
     super(props)
-    // 3)
+    // 3) Initializing the state values for multiple keys
     this.state = {
       rollImages: [dice1, dice2, dice3, dice4, dice5, dice6],
       currentPic: dice,
@@ -33,23 +33,23 @@ class Board extends Component{
   }
 
   handleRoll = () => {
-    // 4)
+    // 4)destructures this.state.rollImages & this.state.diceLog in order to manipulate the values for those keys
     let { rollImages, diceLog } = this.state
-    // 5)
+    // 5) Declaring a variable named randomNum to equal the rounded up number of the length of rollImages
     let randomNum = Math.ceil(Math.random() * rollImages.length)
     let newRoll = rollImages[randomNum]
-    // 6)
+    // 6) Manipulating state indirectly by creating new values for key pairs. So here we are adding a newRoll for currentPic and diceLog.
     this.setState({ currentPic: newRoll, diceLog: [... diceLog, newRoll] })
   }
 
-  // 7)
+  // 7) The purpose of the render() function is to display the specified HTML code inside the specified HTML element.
   render(){
     const { currentPic, diceLog } = this.state
     return(
       <div id="board-container">
-        // 8)
+        // 8) calling a class component called Dice to be rendered on the webpage
         <Dice
-          // 9)
+          // 9) Calling for the instance of this.handleRoll function to be displayed on the webpage
           roll={ this.handleRoll }
           currentPic={ currentPic }
         />
@@ -61,5 +61,5 @@ class Board extends Component{
   }
 }
 
-// 10)
+// 10) exporting all the data on this file Board to return to React in order to be updated as a component
 export default Board
